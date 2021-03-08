@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', \App\Http\Controllers\Auth\LoginController::class);
 Route::post('/logout', \App\Http\Controllers\Auth\LogoutController::class);
+
 Route::get('/user', \App\Http\Controllers\Auth\UserController::class);
 Route::get('/user/usage', \App\Http\Controllers\UserUsageController::class);
+Route::get('/user/plan/availability', \App\Http\Controllers\UserPlanAvailabilityController::class);
 
 Route::get('/files', [\App\Http\Controllers\FileController::class, 'index']);
 Route::post('/files/signed', [\App\Http\Controllers\FileController::class, 'signed']);
@@ -27,3 +29,4 @@ Route::delete('/files/{file:uuid}', [\App\Http\Controllers\FileController::class
 Route::get('/plans', \App\Http\Controllers\PlanController::class);
 Route::get('/subscriptions/intent', \App\Http\Controllers\StripIntentController::class);
 Route::post('/subscriptions', [\App\Http\Controllers\SubscriptionController::class, 'store']);
+Route::patch('/subscriptions', [\App\Http\Controllers\SubscriptionController::class, 'update']);

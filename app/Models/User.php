@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->files->sum('size');
     }
+
+    public function canDowngradeToPlan(Plan $plan)
+    {
+        return $this->usage() <= $plan->storage;
+    }
 }
