@@ -14,7 +14,10 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-        // TODO :: validate
+        $this->validate($request, [
+            'plan'  => ['nullable', 'exists:plans,slug'],
+            'token' => ['required'],
+        ]);
 
         $plan = Plan::whereSlug($request->get('plan', 'medium'))->first();
 
@@ -23,9 +26,17 @@ class SubscriptionController extends Controller
 
     public function update(Request $request)
     {
-        // TODO :: validate
+        $this->validate($request, [
+            'plan'  => ['required', 'exists:plans,slug'],
+        ]);
+
+        // TODO :: middleware
 
         $plan = Plan::whereSlug($request->plan)->first();
+
+        if (!$request->user()->canDowngradeToPlan($plan)) {
+            abort(422);
+        }
 
         if (!$plan->buyable) {
             $request->user()->subscription('default')->cancel();
