@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\FileLink;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -27,4 +28,9 @@ class File extends Model
         'size',
         'path',
     ];
+
+    public function link()
+    {
+        return $this->hasOne(FileLink::class);
+    }
 }

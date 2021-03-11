@@ -10,6 +10,11 @@ class FilePolicy
 {
     use HandlesAuthorization;
 
+    public function createLink(User $user, File $file)
+    {
+        return $user->id === $file->user_id;
+    }
+
     public function destroy(User $user, File $file)
     {
         return $user->id === $file->user_id;
