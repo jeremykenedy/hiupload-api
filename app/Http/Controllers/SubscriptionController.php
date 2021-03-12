@@ -10,6 +10,7 @@ class SubscriptionController extends Controller
     public function __construct()
     {
         $this->middleware(['auth:sanctum']);
+        $this->middleware(['subscribed'])->only('update');
     }
 
     public function store(Request $request)

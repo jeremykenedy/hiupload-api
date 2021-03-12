@@ -51,6 +51,12 @@ class User extends Authenticatable
         return $this->hasMany(File::class);
     }
 
+    public function oldPlan()
+    {
+        return $this->hasOneThrough(Plan::class, Subscription::class, 'user_id', 'stripe_id', 'id','stripe_plan')
+                    ->whereNotNull('subscriptions.ends_at');
+    }
+
     public function plan()
     {
         return $this->hasOneThrough(Plan::class, Subscription::class, 'user_id', 'stripe_id', 'id','stripe_plan')

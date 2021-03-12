@@ -8,6 +8,11 @@ use Illuminate\Auth\AuthenticationException;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['guest']);
+    }
+
     public function __invoke(Request $request)
     {
         $this->validate($request, [
